@@ -32,6 +32,7 @@ const Calendar = ({ events = [] }) => {
                     <div className="w-[75px] h-[33px] bg-amber-700 rounded-[18px] flex items-center justify-center text-amber-50 text-[10px] font-press shadow-sm">9-10 AM</div>
                     <div className="w-[75px] h-[33px] bg-amber-700 rounded-[18px] flex items-center justify-center text-amber-50 text-[10px] font-press shadow-sm">10-11 AM</div>
                     <div className="w-[75px] h-[33px] bg-amber-700 rounded-[18px] flex items-center justify-center text-amber-50 text-[10px] font-press shadow-sm">11-12 PM</div>
+                    <div className="w-[75px] h-[33px] bg-amber-700 rounded-[18px] flex items-center justify-center text-amber-50 text-[10px] font-press shadow-sm">12-1 PM</div>
                     <div className="w-[75px] h-[33px] bg-amber-700 rounded-[18px] flex items-center justify-center text-amber-50 text-[10px] font-press shadow-sm">1-2 PM</div>
                     <div className="w-[75px] h-[33px] bg-amber-700 rounded-[18px] flex items-center justify-center text-amber-50 text-[10px] font-press shadow-sm">2-3 PM</div>
                     <div className="w-[75px] h-[33px] bg-amber-700 rounded-[18px] flex items-center justify-center text-amber-50 text-[10px] font-press shadow-sm">3-4 PM</div>

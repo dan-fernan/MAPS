@@ -1,4 +1,4 @@
-import { pgTable, serial, text, boolean, integer, jsonb, numeric, timestamp } from 'drizzle-orm/pg-core'
+const { pgTable, serial, text, boolean, integer, jsonb, numeric, timestamp } = require('drizzle-orm/pg-core')
 
 const courses = pgTable('courses', {
     courseNumber: serial('courseNumber').primaryKey(),
@@ -71,4 +71,4 @@ const userMandatoryCourseCompleted = pgTable('userMandatoryCourseCompleted', {
 
 
 
-export { courses, userData, userMandatoryCourseCompleted, professorRating, reviews, userScheduleCourses }
+module.exports = { courses, userData, userMandatoryCourseCompleted, professorRating, reviews, userScheduleCourses }

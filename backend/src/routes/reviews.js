@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
         const { instructor } = req.query
 
         if(!instructor){
-            res.status(400).json({ error: "Missing instructor, instructor required" })
+            return res.status(400).json({ error: "Missing instructor, instructor required" })
         }
 
         const allReviews = await db.select()
@@ -32,8 +32,8 @@ router.post('/', async (req, res) => {
             return res.status(400).json({ error: 'Missing required fields' })
         }
 
-        if (rating < 1 || rating > 5) {
-            return res.status(400).json({ error: 'rating must be 1-5' })
+        if (!Number.isInteger(rating) || rating < 1 || rating > 5) {
+            return res.status(400).json({ error: 'rating must be a whole number 1-5' })
         }
 
         await db.transaction(async (tx) => {

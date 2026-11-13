@@ -6,7 +6,10 @@ const { courses, professorRating } = require('./db/schema')
 
 async function main(){
     const rows = await db.select({ instructor: courses.instructor }).from(courses)
+    const existing = await db.select({ instructor: professorRating.instructor }).from(professorRating)
+    const seeded = new Set(existing.map(r => r.instructor))
     const unique = [...new Set(rows.map(r => r.instructor).filter(Boolean))]
+        .filter(instructor => !seeded.has(instructor))
 
     for (const instructor of unique) {
         await db.insert(professorRating)

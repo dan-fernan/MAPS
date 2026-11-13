@@ -41,11 +41,14 @@ const ScheduleBuilder = ({ user }) => {
     // Load user's existing schedule for this term
     useEffect(() => {
         if (!user) return;
+        // ignore responses for a term the user has already switched away from
+        let cancelled = false;
 
         const loadSchedule = async () => {
             try {
                 setEvents([])
                 const schedule = await fetchSchedule(user.uid, selectedTerm);
+                if (cancelled) return;
                 if (schedule && schedule.schedule) {
                     setEvents(schedule.schedule);
                 }
@@ -55,6 +58,7 @@ const ScheduleBuilder = ({ user }) => {
         };
 
         loadSchedule();
+        return () => { cancelled = true; };
     }, [user, selectedTerm]);
 
     // Handle course search
@@ -422,14 +426,14 @@ const ScheduleBuilder = ({ user }) => {
             <div className="flex justify-center gap-4">
                 <button
                     onClick={handleSaveSchedule}
-                    disabled={saving || events.length === 0}
+                    disabled={saving}
                     className="bg-amber-700 text-white px-8 py-3 rounded-lg font-press text-lg hover:bg-amber-800 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     {saving ? 'Saving...' : 'Save Schedule'}
                 </button>
                 <button
                     onClick={handleClearSchedule}
-                    disabled={saving || events.length === 0}
+                    disabled={saving}
                     className="bg-red-700 text-white px-8 py-3 rounded-lg font-press text-lg hover:bg-red-800 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     Clear Schedule

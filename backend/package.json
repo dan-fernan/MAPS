@@ -2,10 +2,10 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "scrape_qc_csci_spring2026.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "node index.js",
-    "server": "nodemon index.js"
+    "start": "node src/index.js",
+    "server": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "",

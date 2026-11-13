@@ -34,18 +34,19 @@ router.post('/', async (req, res) => {
             return res.status(400).json({ error: 'userId, term, and schedule are required' })
         }
 
-        // Delete existing schedule for this user+term
-        await db.delete(userScheduleCourses).where(and(
-            eq(userScheduleCourses.userId, userId),
-            eq(userScheduleCourses.term, term)
-        ))
+        // Replace existing schedule for this user+term atomically
+        const inserted = await db.transaction(async (tx) => {
+            await tx.delete(userScheduleCourses).where(and(
+                eq(userScheduleCourses.userId, userId),
+                eq(userScheduleCourses.term, term)
+            ))
 
-        // Insert new schedule
-        const inserted = await db.insert(userScheduleCourses).values({
-            userId,
-            term,
-            schedule,
-        }).returning()
+            return tx.insert(userScheduleCourses).values({
+                userId,
+                term,
+                schedule,
+            }).returning()
+        })
 
         res.status(201).json(inserted[0])
     } catch (err) {
